@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEATHER FORECAST</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+
+
+    <div style="height: 100vh;" class="w-100 d-flex justify-content-center align-items-center  ">
+        
+        <div class="card shadow  w-75">
+            <div class="align-items-center row">
+                <div class="col-lg-7  ">
+                    <h1 class="mb-5 ms-3">WEATHER FORECAST</h1>
+                    <form>
+                        <div class=" mb-3">
+                            <input type="text" class="form-control ms-3" id="enterLocation" placeholder="Enter Location">
+                           
+                        </div>
+                        
+                        <div>
+                           <input onclick="search()" type="button" class="btn btn-success m-3" value="Search">
+                        </div>
+                    </form>
+
+                    
+                </div>
+
+
+                <div class="col-lg-5 ">
+                    <img width="100%"
+                        src="https://cdn2.iconfinder.com/data/icons/weather-flat-14/64/weather02-512.png">
+
+                       
+                </div>
+
+            </div>
+
+
+            <!-- <div class="ms-3 mb-2">
+                <h4 class="fw-bold u"><u>WEATHER DETAILS</u></h4>
+            </div> -->
+
+            <div id="result" class="ms-2"></div>
+
+            <!-- <div  id="temperature" class="ms-3"></div>
+            
+
+            <div id="country" class="ms-3 mb-3">
+                <h6 >COUNTRY :</h6>
+            </div>
+            <div id="humidity" class="ms-3 mb-3">
+                <h6>HUMIDITY :</h6>
+            </div>
+            <div id="wind" class="ms-3 mb-3">
+                <h6>WIND :</h6>
+            </div>
+            <div id="pressure" class="ms-3 mb-3">
+                <h6>PRESSURE :</h6>
+            </div> -->
+
+
+
+        
+
+
+        </div>
+    </div>
+
+</body>
+
+<script>
+const search=async(enterLocation)=>{
+    try {
+            const enterLocation = document.getElementById("enterLocation").value;
+            if (enterLocation=="") {
+                alert("Please Your City Name");
+                return;
+            }
+            const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${enterLocation}&appid=8ac5c4d57ba6a4b3dfcf622700447b1e&units=metric`)
+            const data = await response.json()
+            const randomCity=data
+          console.log(randomCity);
+                result.innerHTML=`
+
+                <div  class="ms-3 mb-3">
+                <h3 >LOCATION :${randomCity.name}</h3>
+            </div>
+
+
+                <div   class="ms-3">
+                    <h6>TEMPERATURE:  ${randomCity.main.temp} </h6>
+                    </div>
+                
+                
+            <div  class="ms-3 mb-3">
+                <h6 >COUNTRY : ${randomCity.sys.country}</h6>
+            </div>
+            <div class="ms-3 mb-3">
+                <h6>HUMIDITY :  ${randomCity.main.humidity}</h6>
+            </div>
+            <div  class="ms-3 mb-3">
+                <h6>WIND :  ${randomCity.wind.speed}</h6>
+            </div>
+            <div  class="ms-3 mb-3">
+                <h6>PRESSURE :  ${randomCity.main.pressure}</h6>
+            </div>
+                `
+                
+
+            
+        } catch (err) {
+            console.log(err);
+        }
+
+}
+</script>
+</html>
